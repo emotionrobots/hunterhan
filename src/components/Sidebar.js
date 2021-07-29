@@ -1,13 +1,14 @@
 import React from 'react'
-import { ViewBoardsIcon, UserIcon } from '@heroicons/react/solid'
+import { ViewGridIcon, UserIcon } from '@heroicons/react/solid'
 
 function Sidebar() {
-    var icon = 'h-10 w-10 text-white mx-auto mb-6'
+    var icon = 'h-10 w-10 text-white mb-6'
 
     return (
         // Create the outer box along with the gradient color 
-        <div class="flex-grow w-24 p-6 items-start rounded-3xl bg-gradient-to-b from-purple-400 via-pink-500 to-red-500">
-            <ViewBoardsIcon class={icon}></ViewBoardsIcon>
+        <div class="h-auto w-80 p-6 rounded-3xl bg-gradient-to-b from-pink-500 to-purple-700">
+            <img class="rounded-full bg-white h-16 w-16 p-4 m-1 mb-10" src="assets/default_avatar.png" alt="avatar can't be loaded"></img>
+            <ViewGridIcon class={icon}></ViewGridIcon>
             <UserIcon class={icon}></UserIcon>
         </div>
     )
