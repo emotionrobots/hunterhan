@@ -7,8 +7,8 @@ class InfoWidget extends Component {
     render() {
         return (
             <Card height='full' width='full' bgColor={this.props.bgColor} contents={
-                <div class="flex content-center">
-                    <text>{this.props.data}</text>
+                <div className="flex content-center">
+                    <div className="text-white">{this.props.data}</div>
                 </div>
             }></Card>
         );
