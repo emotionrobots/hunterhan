@@ -4,7 +4,7 @@ function Dropdown(props) {
     return (
         <div className="relative hover:bg-blue-400 rounded-lg">
         <select className="block appearance-none w-full bg-transparent border-gray-200 text-white py-3 px-4 pr-8 leading-tight focus:outline-none font-bold">
-            {props.options.map((option) =>
+            {Object.keys(props.options).map((option) =>
                 <option key={option}>{option}</option>
             )}
         </select>
