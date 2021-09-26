@@ -1,13 +1,10 @@
 import React from 'react'
-import {
-    Link
-  } from 'react-router-dom';
 
 export default function NavItem(props) {
     return (
-        <div className="flex flex-row group">
+        <div className="flex flex-row group font-bold text-lg text-white ml-2 my-auto group-hover:text-blue-300 justify-start items-center">
             <props.icon className="h-10 w-10 text-white mb-2 mt-2 group-hover:text-blue-300"></props.icon>
-            <Link to={props.desc.toLowerCase()} className="font-bold text-lg text-white ml-2 my-auto group-hover:text-blue-300">{props.desc}</Link>
+            <div className="group-hover:text-blue-300 align-center pl-2">{props.desc}</div>
         </div>
     )
 }

@@ -17,7 +17,7 @@ class SubPage extends Component {
         return (
             <div className="w-full grid grid-flow-col grid-rows-2 grid-cols-3 gap-4">
                 {this.state.layout.map((val, index) => 
-                    <div className={"col-span-" + val.size.width + " row-span-" + val.size.height + " row-start-" + val.row + " col-start-" + val.column}>
+                    <div key={index} className={"col-span-" + val.size.width + " row-span-" + val.size.height + " row-start-" + val.row + " col-start-" + val.column}>
                         <InfoWidget bgColor={val.color} data={val.data}></InfoWidget>
                     </div>
                     )}

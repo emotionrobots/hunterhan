@@ -1,6 +1,8 @@
 import { InfoWidgetTypes } from "../components/InfoWidget";
+import Auth from "@aws-amplify/auth";
 
 let USER_TOKEN = null
+let USER_ATTRIBUTES = null
 
 const GET_HEADERS = {
     method: 'GET',
@@ -8,34 +10,59 @@ const GET_HEADERS = {
 };
 
 function __internal_fetch(link, headers, params, handleError, isJSON, callback) {
-    // TODO: When backend is implemented, then check to see if there is USER_TOKEN, if so then continue, if not call handleError
-    fetch(link, headers)
+    retrieveUserToken((e) => {
+        handleError(e)
+    },() => {
+        fetch(link, headers)
         .then(res => isJSON ? res.json() : res.text())
         .then(data => callback(data))
         .catch(reason => handleError(reason))
+    })
 }
 
-export function setUserToken(tok) {
-    USER_TOKEN = tok
+function retrieveUserToken(errHandler, callback) {    
+    Auth.currentAuthenticatedUser()
+        .then((cognitoUser) => {
+            cognitoUser.getSession((err, session) => {
+                if (err) {
+                    errHandler(err)
+                    return
+                }
+        
+                USER_TOKEN = session.accessToken.jwtToken
+                USER_ATTRIBUTES = {
+                    username: session.idToken.payload['cognito:username'],
+                    email: session.idToken.payload.email,
+                    phone_number: session.idToken.payload.phone_number,
+                    email_verified: session.idToken.payload.email_verified,
+                    phone_number_verified: session.idToken.payload.phone_number_verified,
+                }
+        
+                callback()
+            })
+        })
+        .catch(errHandler)
 }
 
 export function getUserContext(callback) {
     // User profile will write to S3
     // User profile image will be a link referencing the image
-    callback({
-        username: 'Tester',
-        userProfileImageLink: '',
-        organization: {
-            'Yummy': [
-                'CA',
-                "CB",
-                "CD"
-            ],
-            'Clements': [
-                'Class A',
-                'Celazr00m'
-            ]
-        }
+    retrieveUserToken((e) => {console.log(e)}, () => {
+        callback({
+            username: USER_ATTRIBUTES.username,
+            userProfileImageLink: '',
+            organization: {
+                'Yummy': [
+                    'CA',
+                    "CB",
+                    "CD"
+                ],
+                'Clements': [
+                    'Class A',
+                    'Celazr00m'
+                ]
+            }
+        })
     })
 }
 
