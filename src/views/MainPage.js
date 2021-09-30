@@ -16,7 +16,7 @@ import Loading from '../components/InfoWidgetTypes/Loading';
 const routes = [
   {
     path: "/",
-    exact: "/",
+    exact: true,
     main: () => <SubPage layout={DASHBOARD_LAYOUT}></SubPage>
   },
   {
@@ -31,7 +31,6 @@ const routes = [
 
 function getPage(userContext, state) {
   if (userContext == null || state.isLoading) {
-    console.log(state)
     return <div className="flex flex-col h-screen p-6 bg-steel-grey overscroll-contain">
       <Loading loadingMessage={state.loadingMessage}></Loading>
     </div>

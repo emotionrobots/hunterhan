@@ -13,7 +13,6 @@ class SubPage extends Component {
     }
 
     render() {
-        console.log(this.state);
         return (
             <div className="w-full grid grid-flow-col grid-rows-2 grid-cols-3 gap-4">
                 {this.state.layout.map((val, index) => 

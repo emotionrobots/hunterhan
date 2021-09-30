@@ -11,6 +11,11 @@ export const GlobalAppReducer = (state, action) => {
                 ...state,
                 isLoading: false,
             }
+        case "switch_cam_group":
+            return {
+                ...state,
+                currentSelectedCamGroup: action.camGroup
+            }
         default:
             return state
     }
@@ -18,5 +23,6 @@ export const GlobalAppReducer = (state, action) => {
 
 export const initialState = {
     isLoading: false,
-    loadingMessage: null
+    loadingMessage: null,
+    currentSelectedCamGroup: [0, 0],
 }

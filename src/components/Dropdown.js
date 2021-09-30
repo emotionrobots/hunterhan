@@ -2,9 +2,9 @@ import React from 'react'
 
 function Dropdown(props) {
     return (
-        <div className="relative hover:bg-blue-400 rounded-lg">
-        <select className="block appearance-none w-full bg-transparent border-gray-200 text-white py-3 px-4 pr-8 leading-tight focus:outline-none font-bold">
-            {Object.keys(props.options).map((option) =>
+        <div className="relative pb-1 hover:bg-blue-400 rounded-lg">
+        <select onChange={props.onChange} className="block appearance-none w-full bg-transparent border-gray-200 text-white py-3 px-4 pr-8 leading-tight focus:outline-none font-bold">
+            {props.options.map((option) =>
                 <option key={option}>{option}</option>
             )}
         </select>

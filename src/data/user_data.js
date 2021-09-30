@@ -21,14 +21,8 @@ function __internal_fetch(link, headers, params, handleError, isJSON, callback) 
 }
 
 function retrieveUserToken(errHandler, callback) {    
-    Auth.currentAuthenticatedUser()
-        .then((cognitoUser) => {
-            cognitoUser.getSession((err, session) => {
-                if (err) {
-                    errHandler(err)
-                    return
-                }
-        
+    Auth.currentSession()
+        .then((session) => {
                 USER_TOKEN = session.accessToken.jwtToken
                 USER_ATTRIBUTES = {
                     username: session.idToken.payload['cognito:username'],
@@ -40,7 +34,6 @@ function retrieveUserToken(errHandler, callback) {
         
                 callback()
             })
-        })
         .catch(errHandler)
 }
 
@@ -50,17 +43,24 @@ export function getUserContext(callback) {
     retrieveUserToken((e) => {console.log(e)}, () => {
         callback({
             username: USER_ATTRIBUTES.username,
-            userProfileImageLink: '',
-            organization: {
-                'Yummy': [
-                    'CA',
-                    "CB",
-                    "CD"
-                ],
-                'Clements': [
-                    'Class A',
-                    'Celazr00m'
-                ]
+            token: '',
+            organizations: {
+                'organizationID0' : {
+                    name: 'Yummy',
+                    cameraGroups: {
+                        'groupID0' : 'CA',
+                        'groupID1' : 'CA1',
+                        'groupID2' : 'CA2',
+                        'groupID3' : 'CA3',
+                    }
+                },
+                'organizationID1' : {
+                    name: 'Clements',
+                    cameraGroups: {
+                        'groupID0' : 'Classroom A',
+                        'groupID1' : 'Classroom B',
+                    }
+                }
             }
         })
     })

@@ -24,7 +24,6 @@ class InfoWidget extends Component {
 
     componentDidMount(){
         getInfoWidget(this.props.data, (ret) => {
-            console.log(ret)
             this.setState(ret)
         })
     }
