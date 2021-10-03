@@ -97,13 +97,25 @@ export function getOrganizations(callback) {
 }
 
 export function getInfoWidget(data, callback) {
-    if (data === 'numOccupancy') {
-        callback({
-            cardType: InfoWidgetTypes.SINGLE,
-            attributes: {
-                data: "25 People in the Room",
-                icon: "Human"
-            }
-        })
+    switch (data) {
+        case 'numOccupancy':
+            callback({
+                cardType: InfoWidgetTypes.SINGLE,
+                attributes: {
+                    data: "25 People in the Room",
+                    icon: "Human"
+                }
+            })
+            break;
+        case 'graphReport':
+            callback({
+                cardType: InfoWidgetTypes.CHART,
+                attributes: {
+                    data: [],
+                }
+            })
+            break;
+        default:
+            break;
     }
 }

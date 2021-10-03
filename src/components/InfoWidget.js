@@ -6,6 +6,7 @@ import Loading from './InfoWidgetTypes/Loading';
 import Report from './InfoWidgetTypes/Report';
 import Single from './InfoWidgetTypes/Single';
 import { getInfoWidget } from '../data/user_data';
+import Chart from './InfoWidgetTypes/Chart';
 
 export const InfoWidgetTypes = {
     SINGLE: "infocard.single",
@@ -36,6 +37,8 @@ class InfoWidget extends Component {
                 return Report();
             case InfoWidgetTypes.SINGLE:
                 return Single(this.state.attributes.data);
+            case InfoWidgetTypes.CHART:
+                return Chart(this.state.attributes.data)
             default:
                 break;
         }

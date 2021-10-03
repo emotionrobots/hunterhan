@@ -17,7 +17,7 @@ function Sidebar() {
     let orgNames = getNamesOfOrgs(userContext.organizations)
 
     return (
-        <div className="h-full w-64 p-6 mr-4 rounded-3xl bg-gradient-to-b from-pink-500 to-purple-700">
+        <div className="relative h-full w-64 p-6 mr-4 rounded-3xl bg-gradient-to-b from-pink-500 to-purple-700">
             <div className="flex flex-row m-1 mb-6 w-60">
                 <img className="rounded-full bg-white h-16 w-16 p-4 " src="assets/default_avatar.png" alt="avatar can't be loaded"></img>
                 <p className="flex items-center px-3 right-0 font-bold text-white truncate">{userContext.username}</p>
@@ -44,7 +44,7 @@ function Sidebar() {
                 })
             }
             <button
-                className="absolute bottom-6 pb-4"
+                className="absolute bottom-4"
                 onClick={async (e) => {
                     dispatch({ type: 'start_loading', loadingMessage: 'Logging you out...' })
                     e.preventDefault()

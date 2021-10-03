@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 class Card extends Component {
     render() {
         return (
-            <div className={"rounded-2xl p-6 h-full w-full bg-" + this.props.bgColor}>
+            <div className={"rounded-2xl p-2 h-full w-full bg-" + this.props.bgColor}>
                 {this.props.children}
             </div>
         );
