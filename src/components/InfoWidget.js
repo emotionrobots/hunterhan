@@ -32,13 +32,13 @@ class InfoWidget extends Component {
     renderBody() {
         switch (this.state.cardType) {
             case InfoWidgetTypes.LOADING:
-                return Loading();
+                return <Loading/>;
             case InfoWidgetTypes.REPORT:
-                return Report();
+                return <Report/>;
             case InfoWidgetTypes.SINGLE:
-                return Single(this.state.attributes.data);
+                return <Single data={this.state.attributes.data}/>;
             case InfoWidgetTypes.CHART:
-                return Chart(this.state.attributes.data)
+                return <Chart data={this.state.attributes.data}/>;
             default:
                 break;
         }

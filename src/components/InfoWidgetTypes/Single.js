@@ -11,11 +11,11 @@ function findIcon(icon){
     }
 }
 
-function Single(data, icon) {
+function Single(props) {
     return (
         <div className='flex flex-row h-full justify-center items-center p-3 pl-6 pr-3'>
-            <p className='text-white text-4xl font-bold'>{data}</p>
-            {findIcon(icon)}            
+            <p className='text-white text-4xl font-bold'>{props.data}</p>
+            {findIcon(props.icon)}
         </div>
     )
 }
