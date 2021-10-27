@@ -19,7 +19,7 @@ class InfoWidget extends Component {
     state = {
         cardType: InfoWidgetTypes.LOADING,
         attributes: {
-
+            
         }
     }
 
