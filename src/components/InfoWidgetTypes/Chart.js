@@ -1,6 +1,6 @@
 import { React, useState, createRef, useRef } from 'react'
 import { VscSettings, VscSettingsGear } from 'react-icons/vsc'
-import { AreaChart, XAxis, YAxis, CartesianGrid, Tooltip, Area, ResponsiveContainer, Legend } from 'recharts'
+import { XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend, BarChart, Bar } from 'recharts'
 import DatePicker from 'react-datepicker'
 import SettingsModal from '../Modals/SettingsModal'
 import { createPortal } from 'react-dom'
@@ -57,8 +57,8 @@ export default function Chart(props) {
                 <div className='font-bold text-white text-xl'>Data Configuration</div>
             </div> */}
             <ResponsiveContainer>
-                <AreaChart data={DEBUG_DATA} margin={{ top: 0, right: 0, bottom: 0, left: -35 }}>
-                    <defs>
+                <BarChart data={DEBUG_DATA} margin={{ top: 5, right: 10, bottom: 0, left: -35 }}>
+                    {/* <defs>
                         {
                             checkedYAxis.map((val, ind) => {
                                 if (val)
@@ -70,21 +70,21 @@ export default function Chart(props) {
                                     return <div key={ind} />
                             })
                         }
-                    </defs>
+                    </defs> */}
                     <XAxis dataKey="name" />
                     <YAxis />
                     <Legend />
-                    <CartesianGrid vertical={false} horizontal={false} />
+                    <CartesianGrid vertical={false} strokeDasharray='2 2' />
                     <Tooltip />
                     {
                         checkedYAxis.map((val, ind) => {
                             if (val)
-                                return <Area key={ind} type="monotone" name={Object.values(KEYS)[ind]} dataKey={Object.keys(KEYS)[ind]} stroke={GRAPH_COLORS[ind]} fillOpacity={1} fill={"url(#" + Object.keys(KEYS)[ind] + 'color)'} />
+                                return <Bar key={ind} name={Object.values(KEYS)[ind]} dataKey={Object.keys(KEYS)[ind]} fill={GRAPH_COLORS[ind % GRAPH_COLORS.length]} />
                             else
                                 return <div key={ind} />
                         })
                     }
-                </AreaChart>
+                </BarChart>
             </ResponsiveContainer>
             <div className='p-1 absolute bottom-2 right-2 text-white text-xl font-bold rounded-md hover:bg-blue-400' onClick={() => {
                 setShowChartConfigModal(true)
