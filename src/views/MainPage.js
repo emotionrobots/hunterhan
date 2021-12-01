@@ -6,7 +6,7 @@ import {
   Route
 } from "react-router-dom";
 import SubPage from './SubPage';
-import { CAMERA_GROUPS_LAYOUT, DASHBOARD_LAYOUT } from '../data/main_view_layouts';
+import { CAMERA_GROUPS_LAYOUT, DASHBOARD_LAYOUT, PROFILE_LAYOUT } from '../data/main_view_layouts';
 import { UserContext } from '../components/Contexts/UserContext';
 import { getUserContext } from '../data/user_data';
 import { GlobalAppReducer, initialState } from '../components/Contexts/Reducer';
@@ -21,7 +21,7 @@ const routes = [
   },
   {
     path: "/profile",
-    main: () => <h2>Bubblegum</h2>
+    main: () => <SubPage layout={PROFILE_LAYOUT}></SubPage>
   },
   {
     path: "/cameragroups",

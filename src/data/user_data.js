@@ -3,22 +3,25 @@ import Auth from "@aws-amplify/auth";
 
 let USER_TOKEN = null
 let USER_ATTRIBUTES = null
+let link = "http://localhost:3000/api"
 
 const GET_HEADERS = {
     method: 'GET',
     headers: { 'Content-Type': 'plain/text', 'X-Requested-With': 'XMLHttpRequest' },
 };
 
-function __internal_fetch(link, headers, params, handleError, isJSON, callback) {
+function __internal_fetch(link_addon, headers, params, handleError, isJSON, callback) {
     retrieveUserToken((e) => {
         handleError(e)
     }, () => {
-        fetch(link, headers)
+        fetch(URL(link_addon, link), headers)
             .then(res => isJSON ? res.json() : res.text())
             .then(data => callback(data))
             .catch(reason => handleError(reason))
     })
 }
+
+// Subscribe to MQTT 
 
 function retrieveUserToken(errHandler, callback) {
     Auth.currentSession()
@@ -72,7 +75,7 @@ export function getUserContext(callback) {
  */
 export function getUsername(callback) {
     //TODO: Communicate with MQTT servers
-    __internal_fetch('https://cors-anywhere.herokuapp.com/http://pc3-backend.e-motion.ai/api',
+    __internal_fetch('',
         GET_HEADERS,
         {},
         reason => {
@@ -99,7 +102,7 @@ export function getOrganizations(callback) {
 export function getInfoWidget(data, callback) {
     switch (data) {
         case 'numOccupancy':
-            __internal_fetch('https://cors-anywhere.herokuapp.com/http://pc3-backend.e-motion.ai/api/update_counter',
+            __internal_fetch('/update_counter',
                 GET_HEADERS,
                 {},
                 reason => {
@@ -111,7 +114,7 @@ export function getInfoWidget(data, callback) {
                     cardType: InfoWidgetTypes.SINGLE,
                     attributes: {
                         data: data + " People in the Room",
-                        icon: "Human"
+                        icon: "human"
                     }
                 }))
             break;
@@ -120,6 +123,24 @@ export function getInfoWidget(data, callback) {
                 cardType: InfoWidgetTypes.CHART,
                 attributes: {
                     data: [],
+                }
+            })
+            break;
+        case 'numEntered':
+            callback({
+                cardType: InfoWidgetTypes.SINGLE,
+                attributes: {
+                    data: 21 + " People Entered in the Past Hour",
+                    icon: "enter"
+                }
+            })
+            break;
+        case 'numLeft':
+            callback({
+                cardType: InfoWidgetTypes.SINGLE,
+                attributes: {
+                    data: 18 + " People Left in the Past Hour",
+                    icon: "exit"
                 }
             })
             break;

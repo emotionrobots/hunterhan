@@ -19,26 +19,49 @@ class InfoWidget extends Component {
     state = {
         cardType: InfoWidgetTypes.LOADING,
         attributes: {
-            
+
         }
     }
 
-    componentDidMount(){
+    setInfoWidget = () => {
+        console.log(this.props.data)
         getInfoWidget(this.props.data, (ret) => {
-            this.setState(ret)
+            if(ret === "Error") {
+                this.setState({
+                    cardType: InfoWidgetTypes.SINGLE,
+                    attributes: {
+                        data: "Error"
+                    }
+                })
+            } else {
+                console.log(ret)
+                this.setState(ret)
+            }
         })
+    }
+
+    componentDidMount() {
+        this.setInfoWidget()
+        // this.setInfoWidget.bind(this)
+        
+        // setInterval(this.setInfoWidget, 5000);
+    }
+
+    componentWillUnmount() {
+        // use intervalId from the state to clear the interval
+        // clearInterval(this.state.intervalId);
     }
 
     renderBody() {
         switch (this.state.cardType) {
             case InfoWidgetTypes.LOADING:
-                return <Loading/>;
+                return <Loading />;
             case InfoWidgetTypes.REPORT:
-                return <Report/>;
+                return <Report data={this.state.attributes.data}/>;
             case InfoWidgetTypes.SINGLE:
-                return <Single data={this.state.attributes.data}/>;
+                return <Single data={this.state.attributes} />;
             case InfoWidgetTypes.CHART:
-                return <Chart data={this.state.attributes.data}/>;
+                return <Chart data={this.state.attributes.data} />;
             default:
                 break;
         }

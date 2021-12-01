@@ -14,3 +14,6 @@ The People Counter frontend application uses tailwindcss to effectively display 
 1. Clone the repository.
 2. Run the command ```npm install```
 3. Ensure AWS Amplify CLI is installed and configured and import the PeopleCounter Auth with ```amplify import auth```
+
+# Configure the API Link
+In the ```src/data/user_data.js``` file, edit the ```link``` variable to point to the API endpoint.
